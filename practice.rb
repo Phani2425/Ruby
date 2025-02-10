@@ -489,15 +489,248 @@ end
     puts s
 end
 
+DO WHILE LOOP:-
+
+this is the type of loop wwhich will ru8n atleast once irrespective of the evaluation of condition
+here we use "begin" and "end" kkeyword and at the end of the "end" keyword we write the "while" condition or the "until" condition
+
+i=0
+begin
+    puts i 
+    i+=1
+end while i<5
+
+begin
+    puts i
+    i+=1
+end until i==5
+
+BREAK AND NEXT KEYWORD:-
+break:- breaks the flow when some condition satisfies
+next: skips the current iteration
+
+LEARNT PARALLEL ASSIGNMENT
+
 =end
 
 
+=begin
+METHODS:-
+we use ruby built in methods and user created methods
+
+builtin methods include:- puts,gets,print
+intresting part is we can create variables having name same as the builtin methods and interpreter will not give any error but generally it is not recomended as it will create ambiguous situation and reduce code redability
+
+custom methods:-
+
+def methodName ()
+    //work
+end
+
+methodName()
+
+OR
+
+we can remove the parentheses from all of these without any error
+
+BLOCKS:-
+
+like methods ruby have another concept called blocks it act simiilar to the methods but differtent in terms of its syntax and rules
+a block can only be invoked from a method and for invoking a block we have to use the "yield" keyword and most important is a block can be invoked only if it have the same name as the method
+and most intresting part if a block is invoked from a method then that block get executed when we ru the program even if we wont call the method explicitely
+a block is writen like:-
+methodName {expressions}
+
+def work
+    puts "inside the method"
+    yield
+    puts "inside the method again"
+end
+
+work {puts "hi i am inside work block"}
+
+WE CAN ALSO PASS THE PARAMETERS TO THE BLOCK BY WRITING THEM BESIDE THE YIELD KEYWORD BY SEPARATING THEM WITH COMMA AND IT WILL BE RECIEVED INSIDE THE BLOCK WITHIN PIPES
+
+def work
+    puts "inside the method"
+    yield "hi",1
+    puts "inside the method again"
+end
+
+work { |a,b| puts "#{a} i am inside work block and i am #{b}"}
+
+# WE CAN CALL A BLOCK ANY NO OF TIMES FROM INSIDE A METHOD
+
+def work
+    yield "hey",0
+    puts "inside the method"
+    yield "hi",1
+    puts "inside the method again"
+end
+
+work { |a,b| puts "#{a} i am inside work block and i am #{b}"}
+
+# MOST IMPORTANT POINTS
+
+If you use yield inside a method, you must pass a block when calling the method.
+ If you don't pass a block, it will raise a "LocalJumpError". 
+ To avoid this, you can check if a block is given using the block_given? method.
+
+Here's how you can modify your method to handle cases where no block is provided:
+
+def work
+  if block_given?
+    yield "ku"
+    puts "inside the method"
+    yield "hi", 1
+    puts "inside the method again"
+  else
+    puts "No block was given."
+  end
+end
+
+# Calling the method with a block
+work { |a, b| puts "#{a} i am inside work block and i am #{b}" }
+
+# Calling the method without a block
+work
+
+Output:
+ku i am inside work block and i am 
+inside the method
+hi i am inside work block and i am 1
+inside the method again
+No block was given.
 
 
+METHOD ARGUMENTS:-
+
+-> default value of parameters using "="
+-> in this way the passing of that arguments becomes optional for us
+-> generally the parameters are positional . means the order of postion w will pas sthe arguments while calling a method should be same as the order of position in which the parametres are arranged otherwise the code will run but it will not act same as we want
+
+def hello(name,age)
+    puts "Name:- #{name}, Age:- #{age}"
+end
+
+hello(22,phani)
+
+# this will run but provide wrong output i.e :- Name:22 ,Age:phani
+
+-> but its solution is:- "keyword parameters" => if the parameters are recieved like keywords {parameterName:defaultvalue} then the order of argument does not matter
+
+def hello(name:'phani',age:22)
+    puts "Name:- #{name}, Age:- #{age}"
+end
+
+we can call this in all these ways beacuse of lkeyword parameter and default values:-
+hello(age:24,name:sunny)
+hello()
+hello(age:20)
+
+VARIABLE LENGTH ARGUMENTS:-
+
+when we dont know the no of parameters we recive then we use this to recieve them all in a single parameter and then iterate over it to have all of them using "each" method
+it is mentioned with astrick:- * before the name of parameter
+
+def hello (*args)
+    args.each do |arg|
+        puts arg
+        puts arg.class
+    end
+end
+
+hello("hi",4,true,false,0.6,:hi,'a')
+
+=end
+
+=begin
+
+SCOPE OF VARIABLES
+
+In Ruby, variables can have different scopes, primarily local and global. Understanding these scopes is crucial for managing variable accessibility and lifetime within your programs.
+
+Local Variables:-
+Local variables are defined within a method, block, or loop and are only accessible within that context. They are not accessible outside of the scope in which they are defined.
+
+Naming: Local variables start with a lowercase letter or an underscore (_).
+Scope: Limited to the block, method, or loop where they are defined.
+
+ex:-
+
+def example_method
+  local_var = "I am a local variable"
+  puts local_var
+end
+
+example_method
+# Output: I am a local variable
+
+# Trying to access local_var outside its scope will result in an error
+puts local_var  # This will raise an error: undefined local variable or method `local_var'
+
+Global Variables:-
+Global variables are accessible from anywhere in the Ruby program. They are defined with a dollar sign ($) prefix.
+
+Naming: Global variables start with a dollar sign ($).
+Scope: Accessible throughout the entire program, including within methods, classes, and modules.
+Example:
+$global_var = "I am a global variable"
+
+def example_method
+  puts $global_var
+end
+
+example_method
+# Output: I am a global variable
+
+# Global variables can be accessed outside their defining scope
+puts $global_var
+# Output: I am a global variable
+
+Key Differences:-
+
+Scope:
+Local variables are limited to the block, method, or loop where they are defined.
+Global variables are accessible from anywhere in the program.
+
+Naming:
+Local variables start with a lowercase letter or an underscore (_).
+Global variables start with a dollar sign ($).
+
+Lifetime:
+Local variables exist only for the duration of the block, method, or loop.
+Global variables exist for the duration of the program's execution.
+Best Practices
+Minimize the use of global variables: They can lead to code that is difficult to debug and maintain because they can be modified from anywhere in the program.
+Prefer local variables: They help in keeping the scope limited and the code more modular and easier to understand
+
+=end
+
+=begin
+
+-> learnt about the recursive methods in which i llearnt some new syntaxes and knew that ruby methods consider last statements as return statements so we dont have to write return before them and we ruby interpreter just evaluates that and return the evaluated value
 
 
+# find sum of numbers 0 to 5
+1st way:-
+def cal(num)
+    if num == 0
+        return 0
+    else
+        return num + cal(num-1)
+    end
+end
 
+2nd way:-
+def cal(num)
+    return 0 if num.zero?
+    num+cal(num-1)
+end
 
+puts cal(5)
+
+=end
 
 
 

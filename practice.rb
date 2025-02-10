@@ -602,6 +602,22 @@ hi i am inside work block and i am 1
 inside the method again
 No block was given.
 
+INBUILT BLOCKS:-
+
+there are some in-built blocks of the ruby which are :- BEGIN and END
+
+BEGIN:- 
+syntax:- BEGIN {
+# do something
+}
+Runs when the file is executed and if there is multiple no of BEGIN blocks then they run in the same order they are defined :- from up to down
+
+END:-
+syntx:- END {
+# do something
+}
+Runs when the file execution is about to get finished and if there are multiple ones then they runs in the reverse order they are defined :- means from down to up
+
 
 METHOD ARGUMENTS:-
 
@@ -729,6 +745,42 @@ def cal(num)
 end
 
 puts cal(5)
+
+=end
+
+=begin
+MODULES IN RUBY:-
+
+-> modules are the concept in ruby by which we can make out code files modular in structure
+-> means we can convert long codes into multiple files and can import them and use them anywhere
+
+-> there are some built in modules while we can define our custom ones
+-> syntx:-
+
+test_module.rb
+module ModuleName 
+    # can define variabes
+    # can define methods by replacing ModuleName.methodName with MethodName
+end
+
+main.rb
+# we can import the custom module in 3 ways
+
+require_relative 'module file name'
+require 'relative path of mudule file'
+but we can't do:- require(module file name) because when we import something with its name only without the "require_relative" keyword then ruby try ti find the module 
+in a global variable  "$LOAD_PATH" which stores path of all global modules in an array
+
+and as we are defining or custom module hence ruby cant find that in that varible untill we add it to that
+
+# so first we will add the whole directory where the module is defined to that variable by using append << oerator and then we will try to access that
+
+$LOAD_PATH << '.' 
+# . means the current directory, .. means parent directory respectively
+
+# then try to import that
+require 'module file name'
+
 
 =end
 

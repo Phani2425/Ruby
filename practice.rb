@@ -185,4 +185,319 @@ defined? a -> "local-variable"
 defined? $_ -> "global-variable" as this is the var that store the last line inputed by the user
 defined? b -> nil
 defined? puts -> "method"
+
+irb(main):029:0> gets
+3
+=> "3\n"                                                  
+irb(main):030:0> $_
+=> "3\n"
+irb(main):031:0> 
+
 =end
+
+=begin
+
+OPERATION ORDERING:- 
+precedense order = *,/,** > +,- > =
+
+only ** -> exponentiiation is evaluated from right to left
+
+2 ** 2 ** 3 -> it will be 2^8 as evaluated from right to left
+=end
+
+
+=begin
+STRINGS:-
+
+most used in ruby
+
+string.size and string.length ->  returns the lenght of string
+we can use index to get the characters
+stringName[1]
+stringName[-1]-> returns last character
+stringName[1,5]-> from 1st index to 5th
+stringName[2..10] -> this also works same
+string.slice(0)-> return 1st charcter
+string.slice(1,5) -> return charcters from 1 to 5 index
+
+string.split -> splts on the basis of white space
+string.split('charcater') -> splits on the basis of charcater
+string.split("string") -> do simmilar
+    each one returns a array object
+
+
+string.chars -> returns an array of all the characters the string have
+
+string.count('character') -> counts the no of character and returns that
+
+string.upcase
+string.downcase
+string.swapcase
+string.capitalize
+
+BANG METHODS:-
+in ruby everything is object and every inbuilt method returns a new objecct until we explicitely mentioned that the method is a bang method
+ and a method can be a bang emthod if we put an exclamation mark on its end
+
+ and when we use bang method then insted of returning the new object it modifies the object in place 
+
+ string.swapcase -> return new string object
+
+ string.swapcase! -> modifies the string in place
+
+ stringName.chop -> remove last char
+
+ string.chomp -> removes new line char from end only if it exist else return the string as it is
+
+ then what is diff bw chomp and chop??
+chomp: Removes the trailing newline character (\n) from the end of a string. If there is no newline character at the end, it returns the string unchanged.
+chop: Removes the last character of the string, regardless of what it is.
+
+string.include?("substring or char") -> returns true or false
+
+string.index("substring") -> returns the index of the 1st char of substring if exist else nil
+
+string.start_with?("string") 
+string.end_with?("string")
+
+delete_suffix("substring")
+delete_prefix("substring")
+
+array.join -> joins all element and make a string
+array.join("char or string") -> puts the attribute while joining
+ex:-
+irb(main):031:0> [1,2,3].join
+=> "123"
+irb(main):032:0> [1,2,3].join("abc")
+=> "1abc2abc3"
+
+append operator -> append something to a string and change the string in place
+
+string << newstring -> returns the new string after appending
+
+as we know '+' is used forr concat but we appending is used for better performance
+
+string.gsub("string or char", "new string or char") -> replaces first arg with second
+
+
+
+STRING METHODS:-
+
+to_i -> conver possible string to int
+"5".to_i => 5
+"a".to_i=> 0
+
+simillar with to_f
+
+to_s -> converts to string
+5.to_s -> 5
+
+a=""
+a.empty? - > return true
+
+string.center(10) -> add 10 leading and trailing spaces
+string.center(10,'-') -> add 10 leading and trailing '-'
+
+# ljust -> put no of metioned char or space in right
+rjust -> vice versa
+string.ljust(15)
+string.rjust(15)
+
+remove spaces
+lstrip
+rstrip
+strip
+
+when craeating string using single quote the for escapin the apostop character we use backslash
+
+.encoding -> returns the encodinng if string
+
+=end
+
+=begin
+CONDITIONALS:-
+
+if condition
+    expression
+
+end
+
+we acn also assign values throgh if conditions:-
+
+message = if true
+    "hi guys"
+end
+puts message
+
+here the string gets assigned in the message variable
+
+UNLESS OPERATOR:-
+
+is_online = true
+
+if !is_online
+    puts "offline"
+end
+
+OR
+
+unless is_online
+    puts "offline"
+end
+
+we can also do variable assingment through unless statement
+
+TERNARY OPERATOR:-
+
+messaeg = is_online ? "online" : "offline"
+
+
+=end
+
+=begin
+CASE STATEMENTS:-
+
+num = 8
+
+case num
+when 0
+    puts "num is 0"
+when 2
+    puts "num is 2"
+when 6
+    puts "num is 6"
+
+else
+    puts "num is 8"
+end
+
+OR
+
+case 
+when num==0
+    puts "num is 0"
+when num==2
+    puts "num is 2"
+when num==6
+    puts "num is 6"
+
+else
+    puts "num is 8"
+end
+
+OR
+case shorthand:-
+
+    case 
+when num==0 then puts "0"
+when num==2 then puts "num is 2"
+when num==6 then puts "num is 6"
+else puts "num is 8"
+end
+
+IMP:-
+
+num = 9
+
+message = case num
+when  0..5 then "bw 0 to 5"
+when  5..8 then "bw 5 to 8"
+when  8..10 then "bw 8 to 10"
+else "more than 10"
+end
+
+puts message
+
+IN "===" THE RANGE WILL BE ON LEFT AND VALUE WILL BE ON RIGHT
+=end
+
+=begin
+LOOPS
+
+while loop:-
+there are two ways in which we can write while loop:-
+
+    i = 0
+while i < 5
+    puts "less than 5"
+    i += 1
+end 
+
+OR
+
+i = -1
+puts "#{i += 1}" while i < 4
+# in this way we do not have to write the end statement
+
+UNTIL LOOP:-
+this works similar to the while loop but the only diff is it checks the false condition ,means untill the condition is evaluated to be true it will execute the  code
+until it is true i will do this
+
+i=0
+until i > 4
+    puts "#{i}"
+    i+=1
+end
+
+OR
+
+i=-1
+puts "#{i += 1}" until i>3
+
+# end is writen when it spans to multiple lines
+
+
+FOR LOOP:-
+something to know about for loop:-
+in is a membership operator
+here we can write ranges in brackets or we can skip them
+when for loop is mulitlined then end is mandatory but not do
+but when for loop is in single line then do is manadatory and we can skip the end
+
+i = 0
+
+for i in 0..5 
+    puts i
+end
+
+OR
+
+for i in 0..5 do puts i
+
+EACH:-
+each is a method which can be only used in collections like array and hash
+basicaly it provides an iterarator which is written in the middle of two pipes which iterates over each element
+it works simillar like for loop
+when written in single line then we can use curly braces to define a code block
+but when written in multiple lines then we have to use the "do" keyword for marking the startiung of code block and use "end" keyword for marking the ending of code block
+in each we can use ranges but here unlike others the round brackets are mandatory to have because if we dont use that then the interpreter will take the last number of range only instead of whole range
+
+
+(0..7).each {|i| puts i}
+
+OR
+
+(0..6).each do |i|
+    puts i
+end
+
+['a','b','c'].each do |a|
+    puts a
+end
+
+['wer','rty','tubt','jsvdf'].each do |s|
+    puts s
+end
+
+=end
+
+
+
+
+
+
+
+
+
+
+
